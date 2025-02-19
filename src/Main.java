@@ -1,6 +1,6 @@
-import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 public class Main {
     static Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
@@ -14,6 +14,8 @@ public class Main {
                 System.out.println(double1);
                 System.out.println(string1);
                 isSuccess = true;
+            } catch (ImpostorStringException e) {
+                System.out.println("This so-called 'string' is an impostor!!! Start over >:(");
             } catch(InputMismatchException e) {
                 System.out.println("Input is wrong type!!! Start over >:(");
                 input.nextLine();
@@ -37,7 +39,7 @@ public class Main {
         input.nextLine();
         return val;
     }
-    static String getString() {
+    static String getString() throws ImpostorStringException{
         System.out.println("Gimme a string");
         String val = input.nextLine();
         String[] chars = val.split("");
@@ -57,8 +59,14 @@ public class Main {
             }
         }
         if(!valid) {
-            throw new InputMismatchException();
+            throw new ImpostorStringException("This is custom. My Goodness!");
         }
         return val;
+    }
+}
+
+class ImpostorStringException extends Exception {
+    public ImpostorStringException(String m) {
+        super(m);
     }
 }
